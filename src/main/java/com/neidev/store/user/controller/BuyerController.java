@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.neidev.store.user.entity.Buyer;
 import com.neidev.store.user.service.BuyerService;
+import com.neidev.store.user.shared.buyer.BuyerDTO;
 
 @RestController
 @RequestMapping("/buyer")
@@ -19,7 +20,8 @@ public class BuyerController {
 	private BuyerService service;
 	
 	@PostMapping(value = "/create")
-	public ResponseEntity<Buyer> registerANewBuyer(@RequestBody Buyer data) {
+	public ResponseEntity<BuyerDTO> registerANewBuyer(@RequestBody Buyer data) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.create(data));
 	}
+	
 }
