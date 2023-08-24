@@ -1,7 +1,11 @@
 package com.neidev.store.user.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
+import com.neidev.store.user.json.buyer.BuyerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +14,6 @@ import com.neidev.store.handler.exceptions.UserAlreadyRegisteredException;
 import com.neidev.store.mapper.DozerMapper;
 import com.neidev.store.user.entity.Buyer;
 import com.neidev.store.user.repository.BuyerRepository;
-import com.neidev.store.user.shared.buyer.BuyerDTO;
 
 @Service
 public class BuyerService {
@@ -19,17 +22,40 @@ public class BuyerService {
 	private BuyerRepository repository;
 	
 	@Transactional
-	public BuyerDTO create(Buyer data) {
-		try {
-			Optional<Buyer> optionalBuyer = repository.findById(data.getId());
-			if (optionalBuyer.isPresent())
-					throw new UserAlreadyRegisteredException("Buyer already registered!");
-			
-			if(optionalBuyer.get().getEmail() == data.getEmail())
-					throw new UserAlreadyRegisteredException("Email already in use!");
-		} catch(Exception e) {
-			e.printStackTrace();
-		} 
-		return DozerMapper.parseObject(data, BuyerDTO.class);
+	public BuyerResponse registerANewBuyer(Buyer data) {
+		repository.save(data);
+		return data.toResponse();
+	}
+
+	@Transactional(readOnly = true)
+	public List<BuyerResponse> findAllBuyers() {
+		return repository.findAll().stream()
+				.map(Buyer::toResponse).collect(Collectors.toList());
+	}
+
+	@Transactional(readOnly = true)
+	public BuyerResponse findBuyerById(UUID id) {
+		Optional<Buyer> optionalBuyer = repository.findById(id);
+		return optionalBuyer.get().toResponse();
+	}
+
+	@Transactional
+	public void deleteBuyerById(UUID id) {
+		repository.deleteById(id);
+	}
+
+	@Transactional
+	public BuyerResponse updateRegisteredBuyer(Buyer data) {
+		Optional<Buyer> optionalBuyer = repository.findById(data.getId());
+		var entity = optionalBuyer.get();
+
+		entity.setName(data.getName());
+		entity.setLastName(data.getLastName());
+		entity.setCpf(data.getCpf());
+		entity.setEmail(data.getEmail());
+		entity.setAddress(data.getAddress());
+		entity.setPassword(data.getPassword());
+
+		return entity.toResponse();
 	}
 }
