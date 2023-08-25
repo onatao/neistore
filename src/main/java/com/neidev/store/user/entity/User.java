@@ -4,24 +4,18 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "TB_USER")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@MappedSuperclass
 public abstract class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,7 +24,7 @@ public abstract class User implements Serializable {
 	@GenericGenerator(
 			name = "UUID",
 			strategy = "org.hibernate.id.UUIDGenerator"
-			)
+	)
 	private UUID id;
 	@Column(nullable = false)
 	private String name;
