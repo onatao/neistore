@@ -1,24 +1,17 @@
 package com.neidev.store.user.entity;
 
-import java.util.Objects;
-import java.util.UUID;
-
 import com.neidev.store.user.json.buyer.BuyerResponse;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.util.UUID;
 
 @Entity
 @Table(name = "TB_BUYER")
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Buyer extends User {
 	private static final long serialVersionUID = 1L;
 
