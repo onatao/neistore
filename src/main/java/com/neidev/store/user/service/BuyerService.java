@@ -5,13 +5,14 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.neidev.store.handler.exceptions.BadRequestException;
+import com.neidev.store.handler.exceptions.CredentialAlreadyInUseException;
+import com.neidev.store.handler.exceptions.EmailAlreadyRegisteredException;
 import com.neidev.store.user.json.buyer.BuyerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neidev.store.handler.exceptions.UserAlreadyRegisteredException;
-import com.neidev.store.mapper.DozerMapper;
 import com.neidev.store.user.entity.Buyer;
 import com.neidev.store.user.repository.BuyerRepository;
 
@@ -23,8 +24,25 @@ public class BuyerService {
 	
 	@Transactional
 	public BuyerResponse registerANewBuyer(Buyer data) {
-		repository.save(data);
-		return data.toResponse();
+		try {
+			repository.findByEmail(data.getEmail()).ifPresent(
+					user -> {
+						throw new EmailAlreadyRegisteredException("Email already in use!");
+					}
+			);
+
+			repository.findByCpf(data.getCpf()).ifPresent(
+					user -> {
+						throw new CredentialAlreadyInUseException("Credential's already in use!");
+					}
+			);
+
+			repository.save(data);
+			return data.toResponse();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BadRequestException("Couldn't register the user");
+		}
 	}
 
 	@Transactional(readOnly = true)
@@ -57,5 +75,25 @@ public class BuyerService {
 		entity.setPassword(data.getPassword());
 
 		return entity.toResponse();
+	}
+
+	boolean isEmailInUse(String email) {
+		try {
+			Optional<Buyer> optionalBuyer = repository.findByEmail(email);
+			if (optionalBuyer.isPresent()) return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	boolean isCpfInUse(String cpf) {
+		try {
+			Optional<Buyer> optionalBuyer = repository.findByCpf(cpf);
+			if (optionalBuyer.isPresent()) return true;
+		}  catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

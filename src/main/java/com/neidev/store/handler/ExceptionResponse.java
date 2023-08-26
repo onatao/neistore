@@ -1,4 +1,4 @@
-package com.neidev.store.handler.exceptions;
+package com.neidev.store.handler;
 
 import java.io.Serializable;
 import java.util.Date;

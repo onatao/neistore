@@ -7,7 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
-@Entity
+@Entity(name = "BUYER")
 @Table(name = "TB_BUYER")
 @Getter
 @Setter
