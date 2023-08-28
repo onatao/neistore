@@ -2,6 +2,7 @@ package com.neidev.store.handler;
 
 import java.util.Date;
 
+import com.neidev.store.handler.exceptions.CredentialAlreadyInUseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -34,5 +35,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 				request.getDescription(false)
 			);
 		return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(CredentialAlreadyInUseException.class)
+	public final ResponseEntity<ExceptionResponse> handlerConflictExceptions(Exception e, WebRequest request) {
+		ExceptionResponse exception = new ExceptionResponse(
+			new Date(),
+				e.getMessage(),
+				request.getDescription(false)
+		);
+		return new ResponseEntity<>(
+				exception, HttpStatus.CONFLICT
+		);
 	}
 }
