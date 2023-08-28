@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import com.neidev.store.handler.exceptions.BadRequestException;
 import com.neidev.store.handler.exceptions.CredentialAlreadyInUseException;
-import com.neidev.store.handler.exceptions.EmailAlreadyRegisteredException;
 import com.neidev.store.user.json.buyer.BuyerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,21 +26,22 @@ public class BuyerService {
 		try {
 			repository.findByEmail(data.getEmail()).ifPresent(
 					user -> {
-						throw new EmailAlreadyRegisteredException("Email already in use!");
+						throw new CredentialAlreadyInUseException("Email already in use!");
 					}
 			);
 
 			repository.findByCpf(data.getCpf()).ifPresent(
 					user -> {
-						throw new CredentialAlreadyInUseException("Credential's already in use!");
+						throw new CredentialAlreadyInUseException("CPF already in use!");
 					}
 			);
 
 			repository.save(data);
 			return data.toResponse();
+		} catch (CredentialAlreadyInUseException e) {
+			throw new CredentialAlreadyInUseException(e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new BadRequestException("Couldn't register the user");
+			throw new BadRequestException("User registration failed.");
 		}
 	}
 
@@ -54,6 +54,16 @@ public class BuyerService {
 	@Transactional(readOnly = true)
 	public BuyerResponse findBuyerById(UUID id) {
 		Optional<Buyer> optionalBuyer = repository.findById(id);
+		return optionalBuyer.get().toResponse();
+	}
+
+	@Transactional(readOnly = true)
+	public BuyerResponse findBuyerByEmail(String email) {
+		Optional<Buyer> optionalBuyer = repository.findByEmail(email);
+		return optionalBuyer.get().toResponse();
+	}@Transactional(readOnly = true)
+	public BuyerResponse findBuyerByCpf(String cpf) {
+		Optional<Buyer> optionalBuyer = repository.findByEmail(cpf);
 		return optionalBuyer.get().toResponse();
 	}
 
