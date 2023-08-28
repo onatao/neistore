@@ -2,6 +2,8 @@ package com.neidev.store.user.json.buyer;
 
 import com.neidev.store.user.entity.Buyer;
 import com.neidev.store.user.json.user.UserForm;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class BuyerForm extends UserForm {
 
+    @NotBlank
+    @Size(min = 11, max = 11)
     private String cpf;
 
     public Buyer toEntity() {

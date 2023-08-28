@@ -1,6 +1,8 @@
 package com.neidev.store.user.controller;
 
 import com.neidev.store.user.json.buyer.BuyerResponse;
+import com.neidev.store.user.json.buyer.BuyerUpdateForm;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,7 @@ public class BuyerController {
 	private BuyerService service;
 	
 	@PostMapping
-	public ResponseEntity<BuyerResponse> registerANewBuyer(@RequestBody Buyer data) {
+	public ResponseEntity<BuyerResponse> registerANewBuyer(@RequestBody @Valid Buyer data) {
 		return ResponseEntity
 				.status(HttpStatus.CREATED)
 				.body(
@@ -37,7 +39,7 @@ public class BuyerController {
 				);
 	}
 
-	@GetMapping(value = "/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<BuyerResponse> findBuyerById(@PathVariable UUID id) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
@@ -46,12 +48,30 @@ public class BuyerController {
 				);
 	}
 
-	@PutMapping
-	public ResponseEntity<BuyerResponse> updateRegisteredBuyer(@RequestBody Buyer data) {
+	@GetMapping("/email/{email}")
+	public ResponseEntity<BuyerResponse> findBuyerByEmail(@PathVariable String email) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
-						service.updateRegisteredBuyer(data)
+					service.findBuyerByEmail(email)
+				);
+	}
+
+	@GetMapping("/cpf/{cpf}")
+	public ResponseEntity<BuyerResponse> findBuyerByCpf(@PathVariable String cpf) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(
+						service.findBuyerByCpf(cpf)
+				);
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<BuyerResponse> updateRegisteredBuyer(@RequestBody @Valid BuyerUpdateForm data, @PathVariable UUID id) {
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(
+						service.updateRegisteredBuyer(data, id)
 				);
 	}
 
