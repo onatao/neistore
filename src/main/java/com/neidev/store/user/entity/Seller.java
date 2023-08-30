@@ -32,10 +32,10 @@ public class Seller extends User {
 		return SellerResponse.builder()
 				.id(getId())
 				.name(getName())
-				.lastName(getLastName())
+				//.lastName(getLastName())
 				.email(getEmail())
-				.address(getAddress())
-				.password(getPassword())
+				//.address(getAddress())
+				//.password(getPassword())
 				.cnpj(getCnpj())
 				.build();
 	}
