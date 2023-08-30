@@ -1,8 +1,9 @@
-package com.neidev.store.handler;
+package com.neidev.store.user.handler;
 
 import java.util.Date;
 
-import com.neidev.store.handler.exceptions.CredentialAlreadyInUseException;
+import com.neidev.store.user.handler.exceptions.CredentialAlreadyInUseException;
+import com.neidev.store.user.handler.exceptions.UserAlreadyRegisteredException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import com.neidev.store.handler.exceptions.UserAlreadyRegisteredException;
 
 @RestController
 @ControllerAdvice

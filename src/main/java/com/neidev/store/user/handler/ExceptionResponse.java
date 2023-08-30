@@ -1,4 +1,4 @@
-package com.neidev.store.handler;
+package com.neidev.store.user.handler;
 
 import java.io.Serializable;
 import java.util.Date;
