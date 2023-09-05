@@ -1,14 +1,19 @@
 package com.neidev.store.product.service;
 
 import com.neidev.store.product.entity.Product;
-import com.neidev.store.product.handler.exception.ProdutAlreadyRegisteredException;
+import com.neidev.store.handler.exception.product.ProductNotFoundException;
+import com.neidev.store.handler.exception.product.ProdutAlreadyRegisteredException;
 import com.neidev.store.product.json.ProductResponse;
+import com.neidev.store.product.json.ProductUpdateForm;
 import com.neidev.store.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -20,16 +25,87 @@ public class ProductService {
     public ProductResponse create(Product data) {
         try {
             Optional<Product> optionalProduct =
-                            repository.findById(data.getId());
+                            repository.findByProductName(data.getProductName());
 
             if (optionalProduct.isPresent())
                     throw new ProdutAlreadyRegisteredException("Product already registered.");
+
+            var upperCasedProductName = data.getProductName().toUpperCase();
+            data.setProductName(upperCasedProductName);
 
             return repository
                     .save(data)
                         .toResponse();
         } catch (ProdutAlreadyRegisteredException e) {
             throw new ProdutAlreadyRegisteredException(e.getMessage());
+        }
+    }
+
+    @Transactional
+    public void deleteById(UUID id) {
+        try {
+            Optional<Product> optionalProduct = repository.findById(id);
+
+            if (!optionalProduct.isPresent())
+                    throw new ProductNotFoundException("Product doesnt exist!");
+
+            repository.deleteById(id);
+        } catch (ProductNotFoundException e) {
+            throw new ProductNotFoundException(e.getMessage());
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductResponse> findAll() {
+        try {
+            List<ProductResponse> responseList =
+                    repository.findAll().stream().map(Product::toResponse).collect(Collectors.toList());
+
+            if (responseList.isEmpty())
+                throw new ProductNotFoundException("Cannot retrieve product list");
+
+            return responseList;
+        } catch (ProductNotFoundException e) {
+            throw new ProductNotFoundException(e.getMessage());
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public ProductResponse findById(UUID id) {
+        try {
+            Optional<Product> optionalProduct = repository.findById(id);
+
+            if (!optionalProduct.isPresent())
+                    throw new ProductNotFoundException("Product not registered");
+
+            return optionalProduct
+                    .get()
+                        .toResponse();
+        } catch (ProductNotFoundException e) {
+            throw new ProductNotFoundException(e.getMessage());
+        }
+    }
+
+    @Transactional
+    public ProductResponse updateById(ProductUpdateForm data, UUID id) {
+        try {
+            Optional<Product> optionalProduct = repository.findById(id);
+
+            if (!optionalProduct.isPresent())
+                    throw new ProductNotFoundException("Product not registered");
+
+            var entity = optionalProduct.get();
+            entity.setProductName(data.getProductName());
+            entity.setDescription(data.getDescription());
+            entity.setShortDescription(data.getShortDescription());
+            entity.setImgUrl(data.getImgUrl());
+            entity.setPrice(data.getPrice());
+
+            return repository
+                    .save(entity)
+                    .toResponse();
+        } catch (ProductNotFoundException e) {
+            throw new ProductNotFoundException(e.getMessage());
         }
     }
 }

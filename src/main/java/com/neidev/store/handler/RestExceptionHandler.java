@@ -1,6 +1,7 @@
-package com.neidev.store.product.handler;
+package com.neidev.store.handler;
 
-import com.neidev.store.product.handler.exception.ProductNotFoundException;
+import com.neidev.store.handler.exception.user.BadRequestException;
+import com.neidev.store.handler.exception.user.CredentialAlreadyInUseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,22 +23,26 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 e.getMessage(),
                 request.getDescription(false)
         );
-        return new ResponseEntity<>(
-                exception,
-                HttpStatus.INTERNAL_SERVER_ERROR
-        );
+        return new ResponseEntity<>(exception, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(ProductNotFoundException.class)
-    public final ResponseEntity<ExceptionResponse> handlerNotFoundException(Exception e, WebRequest request) {
+    @ExceptionHandler(BadRequestException.class)
+    public final ResponseEntity<ExceptionResponse> handlerBadRequestException(Exception e, WebRequest request) {
         ExceptionResponse exception = new ExceptionResponse(
-                new Date(),
-                e.getMessage(),
-                request.getDescription(false)
+          new Date(),
+          e.getMessage(),
+          request.getDescription(false)
         );
-        return new ResponseEntity<>(
-                exception,
-                HttpStatus.NOT_FOUND
+        return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CredentialAlreadyInUseException.class)
+    public final ResponseEntity<ExceptionResponse> handlerConflictException(Exception e, WebRequest request) {
+        ExceptionResponse exception = new ExceptionResponse(
+            new Date(),
+            e.getMessage(),
+            request.getDescription(false)
         );
+        return new ResponseEntity<>(exception, HttpStatus.CONFLICT);
     }
 }

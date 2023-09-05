@@ -17,8 +17,6 @@ import java.util.UUID;
 public class ProductUpdateForm {
 
     @NotBlank
-    private UUID id;
-    @NotBlank
     @Size(min = 5, max = 20)
     private String productName;
     @Size(min = 30, max = 200)
@@ -32,7 +30,6 @@ public class ProductUpdateForm {
 
     public ProductForm toForm() {
         ProductForm form = new ProductForm();
-        form.setId(getId());
         form.setProductName(getProductName());
         form.setDescription(getDescription());
         form.setShortDescription(getShortDescription());

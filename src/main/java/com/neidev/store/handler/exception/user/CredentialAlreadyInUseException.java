@@ -1,4 +1,4 @@
-package com.neidev.store.user.handler.exceptions;
+package com.neidev.store.handler.exception.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
