@@ -1,4 +1,4 @@
-package com.neidev.store.product.handler.exception;
+package com.neidev.store.handler.exception.product;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
