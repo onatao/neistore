@@ -18,6 +18,13 @@ public class Buyer extends User {
 	@Column(nullable = false, unique = true)
 	private String cpf;
 
+	public Buyer(String id, String name, String lastName, String phoneNumber,
+				 String address, String email, String password, String cpf) {
+		super(id, name, lastName, phoneNumber, address, email, password);
+		this.cpf = cpf;
+
+	}
+
 	public BuyerResponse toResponse() {
 		return BuyerResponse.builder()
 				.cpf(getCpf())

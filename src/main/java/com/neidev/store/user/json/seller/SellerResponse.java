@@ -13,7 +13,7 @@ public class SellerResponse {
 
     private String cnpj;
 
-    private UUID id;
+    private String id;
     private String name;
     //private String lastName;
     private String phoneNumber;

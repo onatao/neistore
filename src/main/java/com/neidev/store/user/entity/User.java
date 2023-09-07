@@ -25,7 +25,7 @@ public abstract class User implements Serializable {
 			name = "UUID",
 			strategy = "org.hibernate.id.UUIDGenerator"
 	)
-	private UUID id;
+	private String id;
 	@Column(nullable = false)
 	private String name;
 	@Column(nullable = false)
@@ -38,6 +38,4 @@ public abstract class User implements Serializable {
 	private String email;
 	@Column(nullable = false)
 	private String password;
-	
-
 }
