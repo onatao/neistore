@@ -13,7 +13,7 @@ public class BuyerResponse {
 
     private String cpf;
 
-    private UUID id;
+    private String id;
     private String name;
     //private String lastName;
     private String phoneNumber;
