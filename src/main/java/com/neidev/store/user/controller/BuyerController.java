@@ -21,7 +21,7 @@ public class BuyerController {
 	@Autowired
 	private BuyerService service;
 	
-	@PostMapping
+	@PostMapping("/register")
 	public ResponseEntity<BuyerResponse> registerANewBuyer(@RequestBody @Valid Buyer data) {
 		return ResponseEntity
 				.status(HttpStatus.CREATED)
@@ -30,8 +30,8 @@ public class BuyerController {
 				);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<BuyerResponse>> findAllBuyers() {
+	@GetMapping("/all")
+	public ResponseEntity<List<BuyerResponse>> getAllRegisteredBuyers() {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
@@ -40,7 +40,7 @@ public class BuyerController {
 	}
 
 	@GetMapping("/id/{id}")
-	public ResponseEntity<BuyerResponse> findBuyerById(@PathVariable UUID id) {
+	public ResponseEntity<BuyerResponse> getBuyerById(@PathVariable UUID id) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
@@ -49,7 +49,7 @@ public class BuyerController {
 	}
 
 	@GetMapping("/email/{email}")
-	public ResponseEntity<BuyerResponse> findBuyerByEmail(@PathVariable String email) {
+	public ResponseEntity<BuyerResponse> getBuyerByEmail(@PathVariable String email) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
@@ -58,7 +58,7 @@ public class BuyerController {
 	}
 
 	@GetMapping("/cpf/{cpf}")
-	public ResponseEntity<BuyerResponse> findBuyerByCpf(@PathVariable String cpf) {
+	public ResponseEntity<BuyerResponse> getBuyerByCpf(@PathVariable String cpf) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
@@ -66,7 +66,7 @@ public class BuyerController {
 				);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<BuyerResponse> updateRegisteredBuyer(@RequestBody @Valid BuyerUpdateForm data, @PathVariable UUID id) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
@@ -75,8 +75,8 @@ public class BuyerController {
 				);
 	}
 
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> deleteBuyerById(@PathVariable UUID id) {
+	@DeleteMapping(value = "/delete/{id}")
+	public ResponseEntity<?> deleteRegisteredBuyerById(@PathVariable UUID id) {
 		service.deleteBuyerById(id);
 		return ResponseEntity
 				.status(HttpStatus.NO_CONTENT).build();

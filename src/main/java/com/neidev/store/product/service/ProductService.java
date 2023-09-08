@@ -1,5 +1,6 @@
 package com.neidev.store.product.service;
 
+import com.neidev.store.handler.exceptions.ResourceNotFoundException;
 import com.neidev.store.product.entity.Product;
 import com.neidev.store.handler.exception.product.ProductNotFoundException;
 import com.neidev.store.handler.exceptions.ProdutAlreadyRegisteredException;
@@ -47,11 +48,11 @@ public class ProductService {
             Optional<Product> optionalProduct = repository.findById(id);
 
             if (!optionalProduct.isPresent())
-                    throw new ProductNotFoundException("Product doesnt exist!");
+                    throw new ResourceNotFoundException("Product doesnt exist!");
 
             repository.deleteById(id);
-        } catch (ProductNotFoundException e) {
-            throw new ProductNotFoundException(e.getMessage());
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
         }
     }
 
@@ -62,11 +63,11 @@ public class ProductService {
                     repository.findAll().stream().map(Product::toResponse).collect(Collectors.toList());
 
             if (responseList.isEmpty())
-                throw new ProductNotFoundException("Cannot retrieve product list");
+                throw new ResourceNotFoundException("Cannot retrieve product list");
 
             return responseList;
-        } catch (ProductNotFoundException e) {
-            throw new ProductNotFoundException(e.getMessage());
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
         }
     }
 
@@ -76,13 +77,13 @@ public class ProductService {
             Optional<Product> optionalProduct = repository.findById(id);
 
             if (!optionalProduct.isPresent())
-                    throw new ProductNotFoundException("Product not registered");
+                    throw new ResourceNotFoundException("Product not registered");
 
             return optionalProduct
                     .get()
                         .toResponse();
-        } catch (ProductNotFoundException e) {
-            throw new ProductNotFoundException(e.getMessage());
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
         }
     }
 
@@ -92,7 +93,7 @@ public class ProductService {
             Optional<Product> optionalProduct = repository.findById(id);
 
             if (!optionalProduct.isPresent())
-                    throw new ProductNotFoundException("Product not registered");
+                    throw new ResourceNotFoundException("Product not registered");
 
             var entity = optionalProduct.get();
             entity.setProductName(data.getProductName());
@@ -104,8 +105,8 @@ public class ProductService {
             return repository
                     .save(entity)
                     .toResponse();
-        } catch (ProductNotFoundException e) {
-            throw new ProductNotFoundException(e.getMessage());
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException(e.getMessage());
         }
     }
 }
