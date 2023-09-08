@@ -22,7 +22,7 @@ public class SellerController {
 	@Autowired
 	private SellerService service;
 	
-	@GetMapping
+	@GetMapping("/register")
 	public ResponseEntity<SellerResponse> registerANewSeller(@RequestBody @Valid Seller data) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
@@ -31,7 +31,7 @@ public class SellerController {
 				);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<SellerResponse> deleteRegisteredSellerById(@PathVariable UUID id) {
 		service.deleteSellerById(id);
 		return ResponseEntity
@@ -39,8 +39,8 @@ public class SellerController {
 				.build();
 	}
 
-	@GetMapping
-	public ResponseEntity<List<SellerResponse>> findAllRegisteredSellers() {
+	@GetMapping("/all")
+	public ResponseEntity<List<SellerResponse>> getAllRegisteredSellers() {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
@@ -49,7 +49,7 @@ public class SellerController {
 	}
 
 	@GetMapping("id/{id}")
-	public ResponseEntity<SellerResponse> findSellerById(@PathVariable UUID id) {
+	public ResponseEntity<SellerResponse> getSellerById(@PathVariable UUID id) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
@@ -58,7 +58,7 @@ public class SellerController {
 	}
 
 	@GetMapping("cnpj/{cnpj}")
-	public ResponseEntity<SellerResponse> findSellerByCnpj(@PathVariable String cnpj) {
+	public ResponseEntity<SellerResponse> getSellerByCnpj(@PathVariable String cnpj) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
@@ -67,7 +67,7 @@ public class SellerController {
 	}
 
 	@GetMapping("email/{email}")
-	public ResponseEntity<SellerResponse> findSellerByEmail(@PathVariable String email) {
+	public ResponseEntity<SellerResponse> getSellerByEmail(@PathVariable String email) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
@@ -75,7 +75,7 @@ public class SellerController {
 				);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<SellerResponse> updateRegisteredSeller(@RequestBody @Valid SellerUpdateForm data,
 																 @PathVariable UUID id) {
 		return ResponseEntity
