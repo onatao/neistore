@@ -2,7 +2,7 @@ package com.neidev.store.product.service;
 
 import com.neidev.store.product.entity.Product;
 import com.neidev.store.handler.exception.product.ProductNotFoundException;
-import com.neidev.store.handler.exception.product.ProdutAlreadyRegisteredException;
+import com.neidev.store.handler.exceptions.ProdutAlreadyRegisteredException;
 import com.neidev.store.product.json.ProductResponse;
 import com.neidev.store.product.json.ProductUpdateForm;
 import com.neidev.store.product.repository.ProductRepository;

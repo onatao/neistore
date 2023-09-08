@@ -18,7 +18,7 @@ import java.util.UUID;
 public class ProductForm {
 
     @NotBlank
-    private UUID id;
+    private String id;
     @NotBlank
     @Size(min = 5, max = 20)
     private String productName;
