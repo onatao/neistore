@@ -1,8 +1,8 @@
 package com.neidev.store.user.service;
 
-import com.neidev.store.handler.exception.user.BadRequestException;
-import com.neidev.store.handler.exception.user.CredentialAlreadyInUseException;
-import com.neidev.store.handler.exception.user.ResourceNotFoundException;
+import com.neidev.store.handler.exceptions.BadRequestException;
+import com.neidev.store.handler.exceptions.CredentialAlreadyInUseException;
+import com.neidev.store.handler.exceptions.ResourceNotFoundException;
 import com.neidev.store.user.json.seller.SellerResponse;
 import com.neidev.store.user.json.seller.SellerUpdateForm;
 import org.springframework.beans.factory.annotation.Autowired;

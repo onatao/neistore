@@ -5,9 +5,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.neidev.store.handler.exception.user.BadRequestException;
-import com.neidev.store.handler.exception.user.CredentialAlreadyInUseException;
-import com.neidev.store.handler.exception.user.ResourceNotFoundException;
+import com.neidev.store.handler.exceptions.BadRequestException;
+import com.neidev.store.handler.exceptions.CredentialAlreadyInUseException;
+import com.neidev.store.handler.exceptions.ResourceNotFoundException;
 import com.neidev.store.user.json.buyer.BuyerResponse;
 import com.neidev.store.user.json.buyer.BuyerUpdateForm;
 import org.springframework.beans.factory.annotation.Autowired;
