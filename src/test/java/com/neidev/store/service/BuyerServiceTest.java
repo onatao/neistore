@@ -2,6 +2,7 @@ package com.neidev.store.service;
 
 import com.neidev.store.handler.exceptions.CredentialAlreadyInUseException;
 import com.neidev.store.user.entity.Buyer;
+import com.neidev.store.user.json.buyer.BuyerResponse;
 import com.neidev.store.user.repository.BuyerRepository;
 import com.neidev.store.user.service.BuyerService;
 import org.junit.jupiter.api.BeforeEach;
@@ -75,18 +76,20 @@ public class BuyerServiceTest {
 
     @Test
     @DisplayName("Test when registerANewBuyer works fine")
-    void shouldRegisterANewBuyerAndReturnRegisteredBuyer() {
+    void shouldRegisterANewBuyerAndReturnRegisteredBuyerResponse() {
         when(repository.save(any(Buyer.class))).thenReturn(buyer);
 
-        Buyer persistedBuyer = service.registerANewBuyer(buyer);
+        BuyerResponse persistedBuyer = service.registerANewBuyer(buyer);
 
         verify(repository, times(1)).save(buyer);
+        assertEquals(persistedBuyer.getClass(), BuyerResponse.class);
+
         assertEquals(persistedBuyer.getId(), buyer.getId());
         assertEquals(persistedBuyer.getName(), buyer.getName());
-        assertEquals(persistedBuyer.getLastName(), buyer.getLastName());
+        //assertEquals(persistedBuyer.getLastName(), buyer.getLastName());
         assertEquals(persistedBuyer.getPhoneNumber(), buyer.getPhoneNumber());
-        assertEquals(persistedBuyer.getAddress(), buyer.getAddress());
-        assertEquals(persistedBuyer.getEmail(), buyer.getEmail());
+        //assertEquals(persistedBuyer.getAddress(), buyer.getAddress());
+        //assertEquals(persistedBuyer.getEmail(), buyer.getEmail());
         assertEquals(persistedBuyer.getId(), buyer.getId());
         assertEquals(persistedBuyer.getId(), buyer.getId());
     }
