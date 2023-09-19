@@ -28,13 +28,12 @@ public class BuyerService {
 		try {
 			repository.findByEmail(data.getEmail()).ifPresent(
 					user -> {
-						throw new CredentialAlreadyInUseException("Email already registered!");
+						throw new CredentialAlreadyInUseException("Email already registered!" + data.getEmail());
 					}
 			);
-
 			repository.findByCpf(data.getCpf()).ifPresent(
 					user -> {
-						throw new CredentialAlreadyInUseException("CPF already registered!");
+						throw new CredentialAlreadyInUseException("CPF already registered!" + data.getCpf());
 					}
 			);
 
