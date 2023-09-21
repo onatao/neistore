@@ -1,6 +1,7 @@
 package com.neidev.store.service;
 
 import com.neidev.store.handler.exceptions.CredentialAlreadyInUseException;
+import com.neidev.store.handler.exceptions.ResourceNotFoundException;
 import com.neidev.store.user.entity.Buyer;
 import com.neidev.store.user.json.buyer.BuyerResponse;
 import com.neidev.store.user.repository.BuyerRepository;
@@ -16,8 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static org.mockito.Mockito.*;
 
@@ -92,6 +92,50 @@ public class BuyerServiceTest {
         //assertEquals(persistedBuyer.getEmail(), buyer.getEmail());
         assertEquals(persistedBuyer.getId(), buyer.getId());
         assertEquals(persistedBuyer.getId(), buyer.getId());
+    }
+
+    @Test
+    @DisplayName("Test when findAllBuyers fails and throws ResourceNotFoundException")
+    void shouldReturnResourceNotFoundExceptionWhenFindAllBuyersFails() {
+        when(repository.findAll()).thenReturn(null);
+
+        var exception = assertThrows(ResourceNotFoundException.class, () ->
+                                service.findAllBuyers());
+
+        verify(repository, never()).save(buyer);
+        assertTrue(exception.getMessage().contains("Cannot find all buyers"));
+    }
+
+    @Test
+    @DisplayName("Test when findAllBuyers works without any problem")
+    void shouldReturnBuyerResponseList() {
+        Buyer buyer2 = new Buyer(
+                "123456789101",
+                "Buyer2",
+                "Test2",
+                "123456789100",
+                "Testing Street",
+                "buyer@email.com",
+                "123",
+                "123456789210"
+        );
+        List<Buyer> repositoryExpectedList = Arrays.asList(buyer, buyer2);
+        when(repository.findAll()).thenReturn(repositoryExpectedList);
+
+        List<BuyerResponse> responseServiceList = service.findAllBuyers();
+        verify(repository, times(1)).findAll();
+
+        assertNotNull(responseServiceList);
+        assertTrue(responseServiceList.size() == 2);
+        responseServiceList.forEach(o ->
+                assertTrue(o instanceof BuyerResponse)
+        );
+        var buyerUnderTest = responseServiceList.get(1);
+        assertEquals("123456789101", buyerUnderTest.getId());
+        assertEquals("Buyer2", buyerUnderTest.getName());
+        assertEquals("123456789100", buyerUnderTest.getPhoneNumber());
+        assertEquals("123", buyerUnderTest.getPassword());
+        assertEquals("123456789210", buyerUnderTest.getCpf());
     }
 
 }
