@@ -40,7 +40,7 @@ public class BuyerController {
 	}
 
 	@GetMapping("/id/{id}")
-	public ResponseEntity<BuyerResponse> getBuyerById(@PathVariable UUID id) {
+	public ResponseEntity<BuyerResponse> getBuyerById(@PathVariable String id) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
@@ -67,7 +67,7 @@ public class BuyerController {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<BuyerResponse> updateRegisteredBuyer(@RequestBody @Valid BuyerUpdateForm data, @PathVariable UUID id) {
+	public ResponseEntity<BuyerResponse> updateRegisteredBuyer(@RequestBody @Valid BuyerUpdateForm data, @PathVariable String id) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
@@ -76,7 +76,7 @@ public class BuyerController {
 	}
 
 	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<?> deleteRegisteredBuyerById(@PathVariable UUID id) {
+	public ResponseEntity<?> deleteRegisteredBuyerById(@PathVariable String id) {
 		service.deleteBuyerById(id);
 		return ResponseEntity
 				.status(HttpStatus.NO_CONTENT).build();

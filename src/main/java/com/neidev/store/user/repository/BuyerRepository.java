@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.neidev.store.user.entity.Buyer;
 
 @Repository
-public interface BuyerRepository extends JpaRepository<Buyer, UUID> {
+public interface BuyerRepository extends JpaRepository<Buyer, String> {
 
     Optional<Buyer> findByEmail(String email);
 
