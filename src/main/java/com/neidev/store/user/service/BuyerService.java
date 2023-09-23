@@ -28,13 +28,12 @@ public class BuyerService {
 		try {
 			repository.findByEmail(data.getEmail()).ifPresent(
 					user -> {
-						throw new CredentialAlreadyInUseException("Email already registered!");
+						throw new CredentialAlreadyInUseException("Email already registered!" + data.getEmail());
 					}
 			);
-
 			repository.findByCpf(data.getCpf()).ifPresent(
 					user -> {
-						throw new CredentialAlreadyInUseException("CPF already registered!");
+						throw new CredentialAlreadyInUseException("CPF already registered!" + data.getCpf());
 					}
 			);
 
@@ -60,12 +59,12 @@ public class BuyerService {
 	}
 
 	@Transactional(readOnly = true)
-	public BuyerResponse findBuyerById(UUID id) {
+	public BuyerResponse findBuyerById(String id) {
 		try {
 			Optional<Buyer> optionalBuyer = repository.findById(id);
 
 			if (!optionalBuyer.isPresent())
-					throw new ResourceNotFoundException("Buyer not found. ID");
+					throw new ResourceNotFoundException("Buyer not found" + id);
 
 			return optionalBuyer.get().toResponse();
 		} catch (ResourceNotFoundException e) {
@@ -79,7 +78,7 @@ public class BuyerService {
 			Optional<Buyer> optionalBuyer = repository.findByEmail(email);
 
 			if (!optionalBuyer.isPresent())
-				throw new ResourceNotFoundException("Buyer not found. EMAIL");
+				throw new ResourceNotFoundException("Buyer not found" + email);
 
 			return optionalBuyer.get().toResponse();
 		} catch (ResourceNotFoundException e) {
@@ -102,10 +101,10 @@ public class BuyerService {
 	}
 
 	@Transactional
-	public void deleteBuyerById(UUID id) {
+	public void deleteBuyerById(String id) {
 		try {
 			repository.findById(id).orElseThrow(() ->
-					new ResourceNotFoundException("Buyer doesn't exist!")
+					new ResourceNotFoundException("Buyer doesn't exist!" + id)
 			);
 
 			repository.deleteById(id);
@@ -115,12 +114,12 @@ public class BuyerService {
 	}
 
 	@Transactional
-	public BuyerResponse updateRegisteredBuyer(BuyerUpdateForm data, UUID id) {
+	public BuyerResponse updateRegisteredBuyer(BuyerUpdateForm data, String id) {
 		try {
 
 			Optional<Buyer> optionalBuyer = repository.findById(id);
 			if (!optionalBuyer.isPresent())
-					throw new ResourceNotFoundException("Buyer not found");
+					throw new ResourceNotFoundException("Buyer not found" + id);
 
 			var entity = optionalBuyer.get();
 

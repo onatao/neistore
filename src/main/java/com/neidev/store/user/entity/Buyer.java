@@ -30,10 +30,10 @@ public class Buyer extends User {
 				.cpf(getCpf())
 				.id(getId())
 				.name(getName())
-				//.lastName(getLastName())
+				.lastName(getLastName())
 				.phoneNumber(getPhoneNumber())
-				//.address(getAddress())
-				//.email(getEmail())
+				.address(getAddress())
+				.email(getEmail())
 				.password(getPassword())
 				.build();
 	}

@@ -24,7 +24,7 @@ public class Product {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",
-            strategy = "org.hibernate.UUIDGenerator"
+            strategy = "org.hibernate.id.UUIDGenerator"
     )
     private String id;
     @Column(nullable = false, unique = true)
