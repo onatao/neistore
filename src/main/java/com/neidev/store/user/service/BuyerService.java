@@ -49,12 +49,15 @@ public class BuyerService {
 	@Transactional(readOnly = true)
 	public List<BuyerResponse> findAllBuyers() {
 		try {
-			return repository.findAll().stream()
-					.map(Buyer::toResponse)
-					.collect(Collectors.toList());
+			List<BuyerResponse> response =  repository.findAll().stream()
+							.map(Buyer::toResponse)
+							.collect(Collectors.toList());
 
+			if (response.isEmpty())
+				throw new ResourceNotFoundException("Cannot get all registered buyers");
+			return response;
 		} catch (Exception e) {
-			throw new ResourceNotFoundException("Cannot find all buyers");
+			throw new ResourceNotFoundException(e.getMessage());
 		}
 	}
 

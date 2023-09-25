@@ -28,15 +28,22 @@ public class Seller extends User {
 	@Column(nullable = false, unique = true, length = 14)
 	private String cnpj;
 
+	public Seller(String id, String name, String lastName, String phoneNumber,
+				   String address, String email, String password, String cnpj) {
+		super(id, name, lastName, phoneNumber, address, email, password);
+		this.cnpj = cnpj;
+	}
+
 	public SellerResponse toResponse() {
 		return SellerResponse.builder()
 				.id(getId())
 				.name(getName())
-				//.lastName(getLastName())
+				.lastName(getLastName())
 				.email(getEmail())
-				//.address(getAddress())
-				//.password(getPassword())
+				.address(getAddress())
+				.password(getPassword())
 				.cnpj(getCnpj())
+				.phoneNumber(getPhoneNumber())
 				.build();
 	}
 }
