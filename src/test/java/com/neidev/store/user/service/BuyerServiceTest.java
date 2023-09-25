@@ -1,4 +1,4 @@
-package com.neidev.store.service;
+package com.neidev.store.user.service;
 
 import com.neidev.store.handler.exceptions.CredentialAlreadyInUseException;
 import com.neidev.store.handler.exceptions.ResourceNotFoundException;
@@ -37,7 +37,7 @@ public class BuyerServiceTest {
     @InjectMocks
     private BuyerService service;
 
-    Buyer buyer;
+    private Buyer buyer;
 
     @BeforeEach
     public void setUp() {
@@ -146,7 +146,7 @@ public class BuyerServiceTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Must return ResourceNotFoundException when buyer doesnt exist")
     void shouldReturnResourceNotFoundExceptionWhenFindBuyerByIdFails() {
         var mockedId = UUID.randomUUID().toString();
 
