@@ -32,7 +32,7 @@ public class SellerController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<SellerResponse> deleteRegisteredSellerById(@PathVariable UUID id) {
+	public ResponseEntity<SellerResponse> deleteRegisteredSellerById(@PathVariable String id) {
 		service.deleteSellerById(id);
 		return ResponseEntity
 				.status(HttpStatus.NO_CONTENT)
@@ -49,7 +49,7 @@ public class SellerController {
 	}
 
 	@GetMapping("id/{id}")
-	public ResponseEntity<SellerResponse> getSellerById(@PathVariable UUID id) {
+	public ResponseEntity<SellerResponse> getSellerById(@PathVariable String id) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(
@@ -77,7 +77,7 @@ public class SellerController {
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<SellerResponse> updateRegisteredSeller(@RequestBody @Valid SellerUpdateForm data,
-																 @PathVariable UUID id) {
+																 @PathVariable String id) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(

@@ -28,13 +28,13 @@ public class SellerService {
 		try {
 			repository.findByEmail(data.getEmail()).ifPresent(
 					user -> {
-						throw new CredentialAlreadyInUseException("Email already registered!");
+						throw new CredentialAlreadyInUseException("Email already registered! " + data.getEmail());
 					}
 			);
 
 			repository.findByCnpj(data.getCnpj()).ifPresent(
 					user -> {
-						throw new CredentialAlreadyInUseException("CNPJ already registered!");
+						throw new CredentialAlreadyInUseException("CNPJ already registered! " + data.getCnpj());
 					}
 			);
 
@@ -51,22 +51,25 @@ public class SellerService {
 	@Transactional(readOnly = true)
 	public List<SellerResponse> findAllSellers() {
 		try {
-			return repository.findAll()
-					.stream()
-					.map(Seller::toResponse)
-					.collect(Collectors.toList());
+			List<SellerResponse> responseList = repository.findAll().stream()
+							.map(Seller::toResponse)
+							.collect(Collectors.toList());
 
+			if (responseList.isEmpty())
+				throw new ResourceNotFoundException("Cannot get all registered sellers");
+
+			return responseList;
 		} catch (ResourceNotFoundException e) {
-			throw new ResourceNotFoundException("Cannot find all sellers.");
+			throw new ResourceNotFoundException(e.getMessage());
 		}
 	}
 
 	@Transactional(readOnly = true)
-	public SellerResponse findSellerById(UUID id) {
+	public SellerResponse findSellerById(String id) {
 		try {
 			Optional<Seller> optionalSeller = repository.findById(id);
 			if (!optionalSeller.isPresent())
-				throw new ResourceNotFoundException("Seller not found.");
+				throw new ResourceNotFoundException("Seller not found." + id);
 
 			return optionalSeller.get().toResponse();
 		} catch (ResourceNotFoundException e) {
@@ -79,7 +82,7 @@ public class SellerService {
 		try {
 			Optional<Seller> optionalSeller = repository.findByEmail(email);
 			if (!optionalSeller.isPresent())
-					throw new ResourceNotFoundException("Seller not registered.");
+					throw new ResourceNotFoundException("Cannot find seller by email: " + email);
 
 			return optionalSeller.get().toResponse();
 		} catch (ResourceNotFoundException e) {
@@ -92,7 +95,7 @@ public class SellerService {
 		try {
 			Optional<Seller> optionalSeller = repository.findByCnpj(cnpj);
 			if (!optionalSeller.isPresent())
-					throw new ResourceNotFoundException("Seller not registered.");
+					throw new ResourceNotFoundException("Cannot find seller by CNPJ: " + cnpj);
 
 			return optionalSeller.get().toResponse();
 		} catch (ResourceNotFoundException e) {
@@ -101,14 +104,13 @@ public class SellerService {
 	}
 
 	@Transactional
-	public void deleteSellerById(UUID id) {
+	public void deleteSellerById(String id) {
 		try {
 			repository.findById(id).orElseThrow(
 					() -> {
-						throw new ResourceNotFoundException("Seller not registered.");
+						throw new ResourceNotFoundException("Seller doesn't exist!" + id);
 					}
 			);
-
 			repository.deleteById(id);
 		} catch (ResourceNotFoundException e) {
 			throw new ResourceNotFoundException(e.getMessage());
@@ -116,11 +118,11 @@ public class SellerService {
 	}
 
 	@Transactional
-	public SellerResponse updateRegisteredSeller(SellerUpdateForm data, UUID id) {
+	public SellerResponse updateRegisteredSeller(SellerUpdateForm data, String id) {
 		try {
 			Optional<Seller> optionalSeller = repository.findById(id);
 			if (!optionalSeller.isPresent())
-					throw new ResourceNotFoundException("Seller not registered.");
+					throw new ResourceNotFoundException("Seller not registered: " + id);
 
 			var entity = optionalSeller.get();
 			entity.setEmail(data.getEmail());

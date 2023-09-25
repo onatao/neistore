@@ -31,9 +31,6 @@ public class BuyerServiceTest {
     @Mock
     private BuyerRepository repository;
 
-    @Mock
-    private BuyerService mockedService;
-
     @InjectMocks
     private BuyerService service;
 
@@ -54,8 +51,8 @@ public class BuyerServiceTest {
     }
 
     @Test
-    @DisplayName("Test when registerANewBuyer fails with email already registered")
-    void shouldReturnCredentialAlreadyInUseExceptionWithEmailAlreadyInUse() {
+    @DisplayName("Throw an CredentialsAlreadyInUse exception when register using invalid Email")
+    void mustThrowCredentialAlreadyInUseExceptionWhenRegisterANewBuyerFailsWithEmail() {
         when(repository.findByEmail(buyer.getEmail())).thenReturn(Optional.of(buyer));
 
         var exception = assertThrows(CredentialAlreadyInUseException.class, () ->
@@ -68,8 +65,8 @@ public class BuyerServiceTest {
     }
 
     @Test
-    @DisplayName("Test when registerANewBuyer fails with CPF already registered")
-    void shouldReturnCredentialAlreadyInUseExceptionWithCpfAlreadyInUse() {
+    @DisplayName("Throw an CredentialAlreadyInUse exception when register using invalid CPF")
+    void mustThrowCredentialAlreadyInUseExceptionWhenRegisterANewBuyerFailsWithCpf() {
         when(repository.findByCpf(buyer.getCpf())).thenReturn(Optional.of(buyer));
 
         var exception = assertThrows(CredentialAlreadyInUseException.class, () ->
@@ -82,8 +79,8 @@ public class BuyerServiceTest {
     }
 
     @Test
-    @DisplayName("Test when registerANewBuyer works fine")
-    void shouldRegisterANewBuyerAndReturnRegisteredBuyerResponse() {
+    @DisplayName("Must register a buyer and return registered buyer with success")
+    void shouldRegisterANewBuyerAndReturnRegisteredBuyerWithSuccess() {
         when(repository.save(any(Buyer.class))).thenReturn(buyer);
 
         BuyerResponse persistedBuyer = service.registerANewBuyer(buyer);
@@ -93,29 +90,29 @@ public class BuyerServiceTest {
 
         assertEquals(persistedBuyer.getId(), buyer.getId());
         assertEquals(persistedBuyer.getName(), buyer.getName());
-        //assertEquals(persistedBuyer.getLastName(), buyer.getLastName());
+        assertEquals(persistedBuyer.getLastName(), buyer.getLastName());
         assertEquals(persistedBuyer.getPhoneNumber(), buyer.getPhoneNumber());
-        //assertEquals(persistedBuyer.getAddress(), buyer.getAddress());
-        //assertEquals(persistedBuyer.getEmail(), buyer.getEmail());
+        assertEquals(persistedBuyer.getAddress(), buyer.getAddress());
+        assertEquals(persistedBuyer.getEmail(), buyer.getEmail());
         assertEquals(persistedBuyer.getId(), buyer.getId());
         assertEquals(persistedBuyer.getId(), buyer.getId());
     }
 
     @Test
-    @DisplayName("Test when findAllBuyers fails and throws ResourceNotFoundException")
-    void shouldReturnResourceNotFoundExceptionWhenFindAllBuyersFails() {
-        when(repository.findAll()).thenReturn(null);
+    @DisplayName("Throw an ResourceNotFoundException when findAll fails")
+    void mustThrowResourceNotFoundExceptionWhenFindAllBuyersFails() {
+        when(repository.findAll()).thenReturn(Collections.emptyList());
 
         var exception = assertThrows(ResourceNotFoundException.class, () ->
                                 service.findAllBuyers());
 
-        verify(repository, never()).save(buyer);
-        assertTrue(exception.getMessage().contains("Cannot find all buyers"));
+        verify(repository, times(1)).findAll();
+        assertTrue(exception.getMessage().contains("Cannot get all registered buyers"));
     }
 
     @Test
-    @DisplayName("Test when findAllBuyers works without any problem")
-    void shouldReturnBuyerResponseListContainingAllRegisteredBuyers() {
+    @DisplayName("Must return a list containing all registered buyers")
+    void shouldFindAllBuyersAndReturnBuyerResponseList() {
         Buyer buyer2 = new Buyer(
                 "123456789101",
                 "Buyer2",
@@ -146,8 +143,8 @@ public class BuyerServiceTest {
     }
 
     @Test
-    @DisplayName("Must return ResourceNotFoundException when buyer doesnt exist")
-    void shouldReturnResourceNotFoundExceptionWhenFindBuyerByIdFails() {
+    @DisplayName("Throw an ResourceNotFoundException when findById fails")
+    void mustThrowResourceNotFoundExceptionWhenFindBuyerByIdFails() {
         var mockedId = UUID.randomUUID().toString();
 
         when(repository.findById(mockedId)).thenReturn(Optional.empty());
@@ -160,8 +157,8 @@ public class BuyerServiceTest {
     }
 
     @Test
-    @DisplayName("Test when findBuyerById works fine and returns buyer response")
-    void shouldFindBuyerAndReturnBuyerResponseById() {
+    @DisplayName("Must find a seller by id and return it")
+    void shouldFindASellerByIdAndReturnBuyerResponse() {
         when(repository.findById(buyer.getId())).thenReturn(Optional.of(buyer));
 
         BuyerResponse response = service.findBuyerById(buyer.getId());
@@ -173,8 +170,8 @@ public class BuyerServiceTest {
     }
 
     @Test
-    @DisplayName("Must return ResourceNotFoundException when findBuyerByEmail fails")
-    void shouldReturnResourceNotFoundExceptionWhenFindBuyerByEmailFails() {
+    @DisplayName("Throw an ResourceNotFoundException when findByEmail fails")
+    void mustThrowResourceNotFoundExceptionWhenFindBuyerByEmailFails() {
         when(repository.findByEmail(buyer.getEmail())).thenReturn(Optional.empty());
 
         var exception = assertThrows(ResourceNotFoundException.class, () ->
@@ -185,8 +182,8 @@ public class BuyerServiceTest {
     }
 
     @Test
-    @DisplayName("Test when findBuyerByEmail works fine and return buyer response")
-    void shouldFindBuyerAndReturnResponseBuyerByEmail() {
+    @DisplayName("Must find a buyer by email and return it")
+    void shouldFindABuyerByEmailAndReturnBuyerResponse() {
         when(repository.findByEmail(buyer.getEmail())).thenReturn(Optional.of(buyer));
 
         var responseUnderTest = service.findBuyerByEmail(buyer.getEmail());
@@ -198,8 +195,8 @@ public class BuyerServiceTest {
     }
 
     @Test
-    @DisplayName("Must return ResourceNotFoundException when pass")
-    void shouldReturnResourceNotFoundExceptionWhenDeleteBuyerByIdFails() {
+    @DisplayName("Throw an ResourceNotFoundException when deleteById fails")
+    void mustThrowResourceNotFoundExceptionWhenDeleteBuyerByIdFails() {
         when(repository.findById(buyer.getId())).thenReturn(Optional.empty());
 
         var exception = assertThrows(ResourceNotFoundException.class, () ->
@@ -211,8 +208,8 @@ public class BuyerServiceTest {
     }
 
     @Test
-    @DisplayName("Test when deleteBuyerById works fine and returns nothing")
-    void shouldDeleteBuyerByIdAndReturnNothing() {
+    @DisplayName("Must find a seller by id, delete it and returns nothing")
+    void shouldFindABuyerByIdDeleteBuyerAndReturnNothing() {
         doNothing().when(repository).deleteById(any());
         when(repository.findById(buyer.getId())).thenReturn(Optional.of(buyer));
 
@@ -221,8 +218,8 @@ public class BuyerServiceTest {
     }
 
     @Test
-    @DisplayName("Must return ResourceNotFoundException when passes")
-    void shouldThrowResourceNotFoundExceptionWhenPasses() {
+    @DisplayName("Throw ResourceNotFoundException when updateRegisteredSeller fails")
+    void mustThrowResourceNotFoundExceptionWhenUpdateBuyerByIdFails() {
         when(repository.findById(buyer.getId())).thenReturn(Optional.empty());
 
         BuyerUpdateForm form = new BuyerUpdateForm();
@@ -230,13 +227,13 @@ public class BuyerServiceTest {
         var exception = assertThrows(ResourceNotFoundException.class, () ->
                 service.updateRegisteredBuyer(form, buyer.getId()));
 
-        verify(repository, never()).save(buyer);
+        verify(repository, never()).save(any(Buyer.class));
         assertTrue(exception.getMessage().contains(buyer.getId()));
         assertTrue(exception.getMessage().contains("Buyer not found"));
     }
 
     @Test
-    @DisplayName("Test when updateRegisteredBuyer works fine and update buyer")
+    @DisplayName("Must find a buyer by id, update it and returns updated buyer")
     void shouldFindBuyerByIdUpdateBuyerAndReturnBuyerResponse() {
         BuyerUpdateForm form = new BuyerUpdateForm(
           "updatedEmail@email.com",
@@ -247,8 +244,10 @@ public class BuyerServiceTest {
         when(repository.findById(buyer.getId())).thenReturn(Optional.of(buyer));
         when(repository.save(buyer)).thenReturn(buyer);
 
-        BuyerResponse updatedBuyer = service.updateRegisteredBuyer(form, buyer.getId());
+        var updatedBuyer = service.updateRegisteredBuyer(form, buyer.getId());
+
         verify(repository, times(1)).save(buyer);
+        verify(repository, times(1)).findById(buyer.getId());
 
         assertEquals("updatedEmail@email.com", updatedBuyer.getEmail());
         assertEquals("123", updatedBuyer.getPassword());
