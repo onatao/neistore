@@ -1,14 +1,14 @@
 package com.neidev.store.user.json.buyer;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BuyerResponse {
 
     private String cpf;
