@@ -16,3 +16,9 @@
 - PostgreSQL & H2 Database
 - Jakarta Bean Validation
 - Lombok
+
+<h2 align="center">Trello</h2>
+<p align="center">atualizado dia 29/09/2023</p>
+<p align="center">
+  <img src="./assets/images/trello.png">
+</p>
