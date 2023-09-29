@@ -25,6 +25,7 @@ public class SellerForm extends UserForm {
        entity.setLastName(getLastName());
        entity.setAddress(getAddress());
        entity.setEmail(getEmail());
+       entity.setPhoneNumber(getPhoneNumber());
        entity.setPassword(getPassword());
        entity.setCnpj(getCnpj());
        return entity;

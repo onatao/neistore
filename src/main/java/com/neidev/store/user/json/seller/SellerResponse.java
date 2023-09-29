@@ -1,23 +1,23 @@
 package com.neidev.store.user.json.seller;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SellerResponse {
 
     private String cnpj;
 
     private String id;
     private String name;
-    //private String lastName;
+    private String lastName;
     private String phoneNumber;
-    //private String address;
+    private String address;
     private String email;
-    //private String password;
+    private String password;
 }

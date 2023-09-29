@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.neidev.store.user.entity.Seller;
 
 @Repository
-public interface SellerRepository extends JpaRepository<Seller, UUID>{
+public interface SellerRepository extends JpaRepository<Seller, String>{
 
     Optional<Seller> findByEmail(String email);
 
