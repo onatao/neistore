@@ -22,3 +22,36 @@
 <p align="center">
   <img src="./assets/images/trello.png">
 </p>
+
+<h2 align="center">Diagrama de classes do Usuário</h2>
+<p align="center">Seller e Buyer são especializações e herdam de User</p>
+
+```mermaid
+classDiagram
+
+    User <|-- Seller : inheritance
+    User <|-- Buyer : inheritance
+
+    class User~abstract~ {
+    
+    User: - UUID id
+    User: - String name
+    User: - String lastName
+    User: - String phoneNumber
+    User: - String address
+    User: - String email
+    User: - String password
+
+}
+
+    class Seller{
+      Seller: - String cnpj
+      +toResponse()
+    }
+
+    class Buyer{
+     Buyer: - String cpf
+     +toResponse()
+    }
+```
+<p>O método toResponse() presente nas classes Seller e Buyer é uma alternativa ao DozerMapper, ModelMapper ou similares para converter a entidade em um DTO.</p>
