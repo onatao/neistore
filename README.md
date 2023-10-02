@@ -18,13 +18,13 @@
 - Lombok
 
 <h2 align="center">Trello</h2>
-<p align="center">atualizado dia 29/09/2023</p>
+<p align="center">última atualização: 29/09/2023</p>
 <p align="center">
   <img src="./assets/images/trello.png">
 </p>
 
 <h2 align="center">Diagrama de classes do Usuário</h2>
-<p align="center">Seller e Buyer são especializações e herdam de User</p>
+<p align="center">última atualização: 02/10/2023</p>
 
 ```mermaid
 classDiagram
@@ -32,7 +32,7 @@ classDiagram
     User <|-- Seller : inheritance
     User <|-- Buyer : inheritance
 
-    class User~abstract~ {
+    class User ~abstract~ {
     
     User: - UUID id
     User: - String name
@@ -54,4 +54,6 @@ classDiagram
      +toResponse()
     }
 ```
-<p>O método toResponse() presente nas classes Seller e Buyer é uma alternativa ao DozerMapper, ModelMapper ou similares para converter a entidade em um DTO.</p>
+<p>
+  User é uma classe abstrata mapeada que não é persistida no banco de dados, Seller e Buyer são especializações e herdam os atributos de User. Os métodos toResponse() presente nas classes Seller e Buyer são alternativas ao DozerMapper, ModelMapper ou similares para converter a entidade em um Form (DTO).
+</p>
