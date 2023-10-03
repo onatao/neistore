@@ -29,8 +29,8 @@
 ```mermaid
 classDiagram
 
-    User <|-- Seller : inheritance
-    User <|-- Buyer : inheritance
+    User <|-- Seller : extends
+    User <|-- Buyer : extends
 
     class User ~abstract~ {
     
