@@ -2,22 +2,18 @@ package com.neidev.store.user.service;
 
 import com.neidev.store.handler.exceptions.CredentialAlreadyInUseException;
 import com.neidev.store.handler.exceptions.ResourceNotFoundException;
-import com.neidev.store.user.entity.Buyer;
-import com.neidev.store.user.json.buyer.BuyerResponse;
-import com.neidev.store.user.json.buyer.BuyerUpdateForm;
-import com.neidev.store.user.repository.BuyerRepository;
-import com.neidev.store.user.service.BuyerService;
-import jakarta.validation.constraints.AssertTrue;
+import com.neidev.store.domain.user.entity.Buyer;
+import com.neidev.store.domain.user.json.buyer.BuyerResponse;
+import com.neidev.store.domain.user.json.buyer.BuyerUpdateForm;
+import com.neidev.store.domain.user.repository.BuyerRepository;
+import com.neidev.store.domain.user.service.BuyerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import javax.swing.text.html.Option;
 
 import static org.junit.jupiter.api.Assertions.*;
 
