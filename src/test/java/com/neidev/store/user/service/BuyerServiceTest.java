@@ -1,12 +1,12 @@
 package com.neidev.store.user.service;
 
-import com.neidev.store.handler.exceptions.CredentialAlreadyInUseException;
-import com.neidev.store.handler.exceptions.ResourceNotFoundException;
-import com.neidev.store.domain.user.entity.Buyer;
-import com.neidev.store.domain.user.json.buyer.BuyerResponse;
-import com.neidev.store.domain.user.json.buyer.BuyerUpdateForm;
-import com.neidev.store.domain.user.repository.BuyerRepository;
-import com.neidev.store.domain.user.service.BuyerService;
+import com.neidev.store.domain.handler.exceptions.CredentialAlreadyInUseException;
+import com.neidev.store.domain.handler.exceptions.ResourceNotFoundException;
+import com.neidev.store.domain.core.user.entity.Buyer;
+import com.neidev.store.domain.core.user.json.buyer.BuyerResponse;
+import com.neidev.store.domain.core.user.json.buyer.BuyerUpdateForm;
+import com.neidev.store.domain.repository.BuyerRepository;
+import com.neidev.store.service.BuyerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
