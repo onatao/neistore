@@ -1,6 +1,6 @@
 package com.neidev.store.domain.core.product.json;
 
-import com.neidev.store.domain.core.product.entity.Product;
+import com.neidev.store.domain.core.product.model.Product;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

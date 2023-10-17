@@ -1,6 +1,6 @@
 package com.neidev.store.domain.core.user.json.seller;
 
-import com.neidev.store.domain.core.user.entity.Seller;
+import com.neidev.store.domain.core.user.model.Seller;
 import com.neidev.store.domain.core.user.json.user.UserForm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

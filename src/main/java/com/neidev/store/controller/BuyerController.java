@@ -1,6 +1,6 @@
 package com.neidev.store.controller;
 
-import com.neidev.store.domain.core.user.entity.Buyer;
+import com.neidev.store.domain.core.user.model.Buyer;
 import com.neidev.store.domain.core.user.json.buyer.BuyerResponse;
 import com.neidev.store.domain.core.user.json.buyer.BuyerUpdateForm;
 import com.neidev.store.service.BuyerService;

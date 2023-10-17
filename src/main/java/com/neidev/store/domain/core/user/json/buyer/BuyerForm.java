@@ -1,6 +1,6 @@
 package com.neidev.store.domain.core.user.json.buyer;
 
-import com.neidev.store.domain.core.user.entity.Buyer;
+import com.neidev.store.domain.core.user.model.Buyer;
 import com.neidev.store.domain.core.user.json.user.UserForm;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

@@ -1,6 +1,6 @@
 package com.neidev.store.controller;
 
-import com.neidev.store.domain.core.product.entity.Product;
+import com.neidev.store.domain.core.product.model.Product;
 import com.neidev.store.domain.core.product.json.ProductResponse;
 import com.neidev.store.domain.core.product.json.ProductUpdateForm;
 import com.neidev.store.service.ProductService;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/product")
@@ -30,7 +29,7 @@ public class ProductController {
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<Void> deleteProductById(@PathVariable("id") UUID id) {
+    public ResponseEntity<Void> deleteProductById(@PathVariable("id") String id) {
         service.deleteById(id);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT).build();
@@ -46,7 +45,7 @@ public class ProductController {
     }
 
     @GetMapping("p/{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") UUID id) {
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") String id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(
@@ -56,7 +55,7 @@ public class ProductController {
 
     @PutMapping("update/{id}")
     public ResponseEntity<ProductResponse> updateRegisteredProduct(
-            @RequestBody @Valid ProductUpdateForm data, UUID id) {
+            @RequestBody @Valid ProductUpdateForm data, String id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.neidev.store.domain.core.user.entity.Buyer;
+import com.neidev.store.domain.core.user.model.Buyer;
 
 @Repository
 public interface BuyerRepository extends JpaRepository<Buyer, String> {
