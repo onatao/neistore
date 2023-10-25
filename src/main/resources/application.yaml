@@ -1,6 +1,11 @@
 spring:
   profiles:
-    active: dev
+    active: test
 
 server:
   port: 8081
+
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:secret-key}
