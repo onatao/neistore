@@ -192,7 +192,7 @@ public class ProductServiceTest {
 
         verify(repository, times(1)).findById(product.getId());
         verify(repository, times(1)).save(product);
-        
+
         assertEquals("UPDATED PRODUCT NAME", updatedProductResponse.getProductName());
         assertEquals("Updated Product Short Description", updatedProductResponse.getShortDescription());
         assertEquals(new BigDecimal(10), updatedProductResponse.getPrice());
