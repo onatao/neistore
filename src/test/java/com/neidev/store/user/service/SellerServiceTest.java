@@ -3,7 +3,7 @@ package com.neidev.store.user.service;
 import com.neidev.store.service.SellerService;
 import com.neidev.store.domain.handler.exceptions.CredentialAlreadyInUseException;
 import com.neidev.store.domain.handler.exceptions.ResourceNotFoundException;
-import com.neidev.store.domain.core.user.entity.Seller;
+import com.neidev.store.domain.core.user.model.Seller;
 import com.neidev.store.domain.core.user.json.seller.SellerResponse;
 import com.neidev.store.domain.core.user.json.seller.SellerUpdateForm;
 import com.neidev.store.domain.repository.SellerRepository;

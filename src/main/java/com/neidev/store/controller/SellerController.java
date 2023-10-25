@@ -1,6 +1,6 @@
 package com.neidev.store.controller;
 
-import com.neidev.store.domain.core.user.entity.Seller;
+import com.neidev.store.domain.core.user.model.Seller;
 import com.neidev.store.domain.core.user.json.seller.SellerResponse;
 import com.neidev.store.domain.core.user.json.seller.SellerUpdateForm;
 import jakarta.validation.Valid;

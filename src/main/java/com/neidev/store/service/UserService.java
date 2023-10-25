@@ -4,7 +4,7 @@ import com.neidev.store.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.neidev.store.domain.core.user.entity.User;
+import com.neidev.store.domain.core.user.model.User;
 
 @Service
 public class UserService {

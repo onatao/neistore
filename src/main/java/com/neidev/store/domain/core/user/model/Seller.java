@@ -1,4 +1,4 @@
-package com.neidev.store.domain.core.user.entity;
+package com.neidev.store.domain.core.user.model;
 
 import com.neidev.store.domain.core.user.json.seller.SellerResponse;
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Seller extends User {
+public non-sealed class Seller extends User {
 	private static final long serialVersionUID = 1L;
 
 	@Column(nullable = false, unique = true, length = 14)

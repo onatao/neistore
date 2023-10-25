@@ -1,4 +1,4 @@
-package com.neidev.store.domain.core.product.entity;
+package com.neidev.store.domain.core.product.model;
 
 import com.neidev.store.domain.core.product.json.ProductResponse;
 import jakarta.persistence.*;

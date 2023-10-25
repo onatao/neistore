@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.neidev.store.domain.core.user.entity.Seller;
+import com.neidev.store.domain.core.user.model.Seller;
 
 @Repository
 public interface SellerRepository extends JpaRepository<Seller, String>{

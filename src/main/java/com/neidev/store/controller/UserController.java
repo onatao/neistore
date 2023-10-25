@@ -1,6 +1,6 @@
 package com.neidev.store.controller;
 
-import com.neidev.store.domain.core.user.entity.User;
+import com.neidev.store.domain.core.user.model.User;
 import com.neidev.store.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

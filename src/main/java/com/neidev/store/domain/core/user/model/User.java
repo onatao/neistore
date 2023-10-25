@@ -1,8 +1,6 @@
-package com.neidev.store.domain.core.user.entity;
+package com.neidev.store.domain.core.user.model;
 
 import java.io.Serializable;
-import java.util.Objects;
-import java.util.UUID;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,7 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
-public abstract class User implements Serializable {
+public sealed class User implements Serializable permits Buyer, Seller {
 	private static final long serialVersionUID = 1L;
 
 	@Id

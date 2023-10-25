@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.neidev.store.domain.core.user.entity.Buyer;
+import com.neidev.store.domain.core.user.model.Buyer;
 
 @Service
 public class BuyerService {
