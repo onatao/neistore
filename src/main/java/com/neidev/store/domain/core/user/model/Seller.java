@@ -1,10 +1,8 @@
 package com.neidev.store.domain.core.user.model;
 
 import com.neidev.store.domain.core.user.json.seller.SellerResponse;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.neidev.store.security.enums.AuthRole;
+import lombok.*;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +14,7 @@ import jakarta.persistence.Table;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public non-sealed class Seller extends User {
 	private static final long serialVersionUID = 1L;
 
@@ -23,8 +22,8 @@ public non-sealed class Seller extends User {
 	private String cnpj;
 
 	public Seller(String id, String name, String lastName, String phoneNumber,
-				   String address, String email, String password, String cnpj) {
-		super(id, name, lastName, phoneNumber, address, email, password);
+				  String address, String email, String password, String cnpj, AuthRole role) {
+		super(id, name, lastName, phoneNumber, address, email, password, role);
 		this.cnpj = cnpj;
 	}
 

@@ -6,6 +6,7 @@ import com.neidev.store.domain.core.user.model.Buyer;
 import com.neidev.store.domain.core.user.json.buyer.BuyerResponse;
 import com.neidev.store.domain.core.user.json.buyer.BuyerUpdateForm;
 import com.neidev.store.domain.repository.BuyerRepository;
+import com.neidev.store.security.enums.AuthRole;
 import com.neidev.store.service.BuyerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -42,7 +43,8 @@ public class BuyerServiceTest {
                 "Testing Street",
                 "buyer@email.com",
                 "123",
-                "12345678910"
+                "12345678910",
+                AuthRole.BUYER
         );
     }
 
@@ -117,7 +119,8 @@ public class BuyerServiceTest {
                 "Testing Street",
                 "buyer@email.com",
                 "123",
-                "123456789210"
+                "123456789210",
+                AuthRole.BUYER
         );
         List<Buyer> repositoryExpectedList = Arrays.asList(buyer, buyer2);
         when(repository.findAll()).thenReturn(repositoryExpectedList);

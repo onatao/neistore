@@ -1,5 +1,6 @@
 package com.neidev.store.controller;
 
+import com.neidev.store.domain.core.user.json.seller.SellerRegisterForm;
 import com.neidev.store.domain.core.user.model.User;
 import com.neidev.store.security.infra.service.JwtTokenService;
 import com.neidev.store.security.record.LoginRecord;
@@ -32,6 +33,11 @@ public class AuthenticationController {
         var auth = manager.authenticate(usernamePasswordToken);
         var token = tokenService.generateToken((User) auth.getPrincipal());
         return ResponseEntity.ok().body(new LoginResponse(token));
+    }
+
+    @PostMapping("/s/register")
+    public ResponseEntity registerSeller(@RequestBody SellerRegisterForm data) {
+        return null;
     }
 
 

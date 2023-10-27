@@ -1,6 +1,7 @@
 package com.neidev.store.domain.core.user.model;
 
 import com.neidev.store.domain.core.user.json.buyer.BuyerResponse;
+import com.neidev.store.security.enums.AuthRole;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,8 +17,8 @@ public non-sealed class Buyer extends User {
 	private String cpf;
 
 	public Buyer(String id, String name, String lastName, String phoneNumber,
-				 String address, String email, String password, String cpf) {
-		super(id, name, lastName, phoneNumber, address, email, password);
+				 String address, String email, String password, String cpf, AuthRole role) {
+		super(id, name, lastName, phoneNumber, address, email, password, role);
 		this.cpf = cpf;
 
 	}

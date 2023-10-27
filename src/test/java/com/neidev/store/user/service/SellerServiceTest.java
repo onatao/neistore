@@ -1,5 +1,6 @@
 package com.neidev.store.user.service;
 
+import com.neidev.store.security.enums.AuthRole;
 import com.neidev.store.service.SellerService;
 import com.neidev.store.domain.handler.exceptions.CredentialAlreadyInUseException;
 import com.neidev.store.domain.handler.exceptions.ResourceNotFoundException;
@@ -43,7 +44,8 @@ public class SellerServiceTest {
                 "Testing Street",
                 "seller@email.com",
                 "123",
-                "12345678910000"
+                "12345678910000",
+                AuthRole.SELLER
         );
     }
 

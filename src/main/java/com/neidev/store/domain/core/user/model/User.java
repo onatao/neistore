@@ -53,7 +53,6 @@ public sealed class User implements UserDetails permits Buyer, Seller {
 					new SimpleGrantedAuthority("admin"),
 					new SimpleGrantedAuthority("seller"),
 					new SimpleGrantedAuthority("buyer")
-
 			);
 		}
 		return List.of(new SimpleGrantedAuthority(this.role.getDescription()));
