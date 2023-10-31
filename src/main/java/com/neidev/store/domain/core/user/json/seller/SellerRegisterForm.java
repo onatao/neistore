@@ -21,17 +21,17 @@ public class SellerRegisterForm {
     private AuthRole role;
     private String cnpj;
 
-    public Seller toEntity(SellerRegisterForm data) {
+    public Seller toEntity() {
         Seller s = new Seller();
-        s.setId(data.getId());
-        s.setName(data.getName());
-        s.setLastName(data.getLastName());
-        s.setPhoneNumber(data.getPhoneNumber());
-        s.setAddress(data.getAddress());
-        s.setEmail(data.getEmail());
-        s.setPassword(data.getPassword());
-        s.setRole(data.getRole());
-        s.setCnpj(data.getCnpj());
+        s.setId(getId());
+        s.setName(getName());
+        s.setLastName(getLastName());
+        s.setPhoneNumber(getPhoneNumber());
+        s.setAddress(getAddress());
+        s.setEmail(getEmail());
+        s.setPassword(getPassword());
+        s.setRole(getRole());
+        s.setCnpj(getCnpj());
         return s;
     }
 

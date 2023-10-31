@@ -8,8 +8,8 @@ public enum AuthRole {
     BUYER(1, "buyer"),
     SELLER(2, "seller");
 
-    private Integer code;
-    private String description;
+    private final Integer code;
+    private final String description;
 
     AuthRole(Integer code, String description) {
         this.code = code;
