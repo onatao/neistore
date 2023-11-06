@@ -17,8 +17,8 @@ import java.io.IOException;
 @Component
 public class SecurityFilterContext extends OncePerRequestFilter {
 
-    private JwtTokenService tokenService;
-    private UserRepository userRepository;
+    private final JwtTokenService tokenService;
+    private final UserRepository userRepository;
 
     public SecurityFilterContext(JwtTokenService tokenService, UserRepository userRepository) {
         this.tokenService = tokenService;

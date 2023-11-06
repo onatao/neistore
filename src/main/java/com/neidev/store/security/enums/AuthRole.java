@@ -26,9 +26,12 @@ public enum AuthRole {
 
     public AuthRole toEnum(Integer code) {
         if (code == null) return null;
-        for(AuthRole o: AuthRole.values()) {
-            if (code.equals(o.getCode())) return o;
-        }
+        Arrays.stream(
+                AuthRole.values())
+                .forEach(o -> o.getCode().equals(code));
+//        for(AuthRole o: AuthRole.values()) {
+//            if (code.equals(o.getCode())) return o;
+//        }
         throw new IllegalArgumentException("Cannot get role");
     }
 }
